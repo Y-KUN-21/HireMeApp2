@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hire_me/bottomNavBar.dart';
-import 'package:hire_me/credentials/sign_up.dart';
-import 'package:hire_me/credentials/sing_in.dart';
-import 'package:hire_me/home/home.dart';
 import 'package:hire_me/profile/profile.dart';
 import 'package:hire_me/side_navbar.dart';
 
@@ -31,10 +27,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         initialRoute: '/sidenavbar',
         routes: {
-          '/signin': (context) => SignIn(),
-          '/signup': (context) => SignUp(),
-          '/bottomnavbar': (context) => BottomNavBar(),
-          '/home': (context) => Home(),
           '/profile': (context) => Profile(),
           '/sidenavbar': (context) => SideNavbar(),
         },

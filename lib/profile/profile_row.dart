@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hire_me/common/reAutoSizeText.dart';
+import 'package:hire_me/commons/reAutoSizeText.dart';
 import 'package:hire_me/constrants.dart';
 
 class ProfileRow extends StatelessWidget {
