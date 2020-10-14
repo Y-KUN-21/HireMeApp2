@@ -1,8 +1,9 @@
 import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:hire_me/browse/browse.dart';
 import 'package:hire_me/myHome.dart';
+import 'package:hire_me/profile/profile.dart';
 
 class SideNavbar extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _SideNavbarState extends State<SideNavbar>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   final double maxSlide = 250.0;
+  int _currentindex = 0;
   Color bgColor = Color.fromRGBO(68, 138, 255, 1);
 
   @override
@@ -28,8 +30,12 @@ class _SideNavbarState extends State<SideNavbar>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: bgColor, systemNavigationBarColor: bgColor));
+    final List<Widget> _screens = [
+      _myhome(),
+      _browse(),
+      _myProfile(),
+    ];
+
     return GestureDetector(
       child: AnimatedBuilder(
           animation: _animationController,
@@ -44,7 +50,7 @@ class _SideNavbarState extends State<SideNavbar>
                       ..translate(slide)
                       ..scale(scale),
                     alignment: Alignment.centerLeft,
-                    child: _myhome()),
+                    child: _screens[_currentindex]),
               ],
             );
           }),
@@ -54,7 +60,7 @@ class _SideNavbarState extends State<SideNavbar>
   Widget _myhome() {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: bgColor,
+          backgroundColor: Colors.white,
           elevation: 0.0,
           title: Text("HOME"),
           centerTitle: true,
@@ -64,6 +70,36 @@ class _SideNavbarState extends State<SideNavbar>
           ),
         ),
         body: MyHome());
+  }
+
+  Widget _browse() {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          title: Text("BROWSE"),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(EvaIcons.menu2Outline),
+            onPressed: () => toggle(),
+          ),
+        ),
+        body: Browse());
+  }
+
+  Widget _myProfile() {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          title: Text("PROFILE"),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(EvaIcons.menu2Outline),
+            onPressed: () => toggle(),
+          ),
+        ),
+        body: Profile());
   }
 
   Widget _myDrawer() {
@@ -99,15 +135,34 @@ class _SideNavbarState extends State<SideNavbar>
                 SizedBox(
                   height: 50,
                 ),
-                _drawerItems(
-                  EvaIcons.home,
-                  "Home",
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _currentindex = 0;
+                    });
+                    toggle();
+                  },
+                  child: _drawerItems(
+                    EvaIcons.home,
+                    "Home",
+                  ),
                 ),
                 InkWell(
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/profile'),
+                    onTap: () {
+                      setState(() {
+                        _currentindex = 1;
+                      });
+                      toggle();
+                    },
                     child: _drawerItems(EvaIcons.browser, "Browse")),
-                _drawerItems(EvaIcons.person, "Profile"),
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        _currentindex = 2;
+                      });
+                      toggle();
+                    },
+                    child: _drawerItems(EvaIcons.person, "Profile")),
                 _drawerItems(EvaIcons.settings2Outline, "Settings"),
                 _drawerItems(EvaIcons.info, "About"),
               ],
