@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hire_me/commons/reAutoSizeText.dart';
+import 'package:hire_me/constrants.dart';
 import 'package:hire_me/profile/profile_row.dart';
 
 class Profile extends StatefulWidget {
@@ -11,92 +12,104 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    var mediasize = MediaQuery.of(context).size.height;
+    var mediasize = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: ListView(
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 100, 20, 10),
-                    child: Container(
-                      height: mediasize / 4,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey[300],
-                              offset: Offset(1, 1),
-                              blurRadius: 2),
-                          BoxShadow(
-                              color: Colors.grey[300],
-                              offset: Offset(-1, -1),
-                              blurRadius: 2)
-                        ],
-                      ),
-                    ),
-                  ),
-                  CircleAvatar(
-                    radius: 100,
-                    backgroundColor: Colors.grey[300],
-                    backgroundImage: NetworkImage(
-                        "https://64.media.tumblr.com/acd12dd409680214efb76ac145598faf/e8e01baccc5a22c3-13/s640x960/8131b53fb1ab0c2fda5eb1375dfa3d8ba22d7405.jpg"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 230.0),
-                    child: Column(
-                      children: [
-                        ReAutoSizeText(
-                          text: "Y-KUN-21".toUpperCase(),
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 3.0,
-                          fontsize: 30,
-                        ),
-                        ReAutoSizeText(
-                          text: "21-02-00".toLowerCase(),
-                          fontWeight: FontWeight.normal,
-                          fontsize: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ProfileRow(
-                      icon: Icon(EvaIcons.personOutline),
-                      text: "saitama kun",
-                      onPressed: () {},
-                    ),
-                    ProfileRow(
-                      icon: Icon(EvaIcons.phoneCallOutline),
-                      text: "+91 45755#51x2",
-                      onPressed: () {},
-                    ),
-                    ProfileRow(
-                      icon: Icon(EvaIcons.emailOutline),
-                      text: "ykun21@gmail.com",
-                      onPressed: () {},
-                    ),
-                  ],
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          title: Text(
+            "Ykun".toUpperCase(),
+            style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2.0),
+          ),
+          centerTitle: false,
+          actions: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "2:21 PM".toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18,
+                      letterSpacing: 2.0),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          tooltip: "Edit profile",
-          child: Icon(EvaIcons.edit2Outline),
+        body: Stack(
+          children: [
+            ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    height: mediasize.height / 2.5,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              "https://cdn.wccftech.com/wp-content/uploads/2019/06/WCCFonepunchman1.jpg",
+                            ),
+                            fit: BoxFit.cover)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 8),
+                  child: Text(
+                    "User details".toUpperCase(),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ProfileRow(
+                  icon: Icon(EvaIcons.personOutline),
+                  text: "saitama kun",
+                  onPressed: () {},
+                ),
+                Divider(
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                ProfileRow(
+                  icon: Icon(EvaIcons.phoneCallOutline),
+                  text: "+91 45755#51x2",
+                  onPressed: () {},
+                ),
+                ProfileRow(
+                  icon: Icon(EvaIcons.phoneCallOutline),
+                  text: "+91 52565#51x2",
+                  onPressed: () {},
+                ),
+                Divider(
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                ProfileRow(
+                  icon: Icon(EvaIcons.emailOutline),
+                  text: "ykun21@gmail.com",
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            Positioned(
+              top: mediasize.height / 2.5 - 22,
+              left: mediasize.width - 80,
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Color.fromRGBO(61, 64, 91, 1)),
+                    color: Color.fromRGBO(61, 64, 91, 1)),
+                height: 60,
+                width: 60,
+                child: IconButton(
+                    icon: Icon(
+                      EvaIcons.edit2Outline,
+                      color: Colors.white,
+                    ),
+                    onPressed: null),
+              ),
+            ),
+          ],
         ));
   }
 }

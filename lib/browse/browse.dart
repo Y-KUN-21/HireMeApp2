@@ -1,6 +1,6 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hire_me/browse/person_card.dart';
-import 'package:hire_me/constrants.dart';
 
 class Browse extends StatefulWidget {
   @override
@@ -11,7 +11,23 @@ class _BrowseState extends State<Browse> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundcolor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        title: Text(
+          "BROWSE",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: false,
+        actions: [
+          IconButton(
+              icon: Icon(
+                EvaIcons.searchOutline,
+                color: Colors.black,
+              ),
+              onPressed: null)
+        ],
+      ),
       body: Container(
           color: Colors.white,
           child: ListView.builder(

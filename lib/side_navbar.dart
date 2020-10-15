@@ -14,7 +14,7 @@ class _SideNavbarState extends State<SideNavbar>
   AnimationController _animationController;
   final double maxSlide = 250.0;
   int _currentindex = 0;
-  Color bgColor = Color.fromRGBO(68, 138, 255, 1);
+  Color bgColor = Color.fromRGBO(61, 64, 91, 1);
 
   @override
   void initState() {
@@ -30,12 +30,15 @@ class _SideNavbarState extends State<SideNavbar>
   @override
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
-      _myhome(),
-      _browse(),
-      _myProfile(),
+      MyHome(),
+      Browse(),
+      Profile(),
     ];
 
     return GestureDetector(
+      onHorizontalDragStart: (DragStartDetails details) {
+        toggle();
+      },
       child: AnimatedBuilder(
           animation: _animationController,
           builder: (context, _) {
@@ -54,51 +57,6 @@ class _SideNavbarState extends State<SideNavbar>
             );
           }),
     );
-  }
-
-  Widget _myhome() {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Text("HOME"),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(EvaIcons.menu2Outline),
-            onPressed: () => toggle(),
-          ),
-        ),
-        body: MyHome());
-  }
-
-  Widget _browse() {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Text("BROWSE"),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(EvaIcons.menu2Outline),
-            onPressed: () => toggle(),
-          ),
-        ),
-        body: Browse());
-  }
-
-  Widget _myProfile() {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Text("PROFILE"),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(EvaIcons.menu2Outline),
-            onPressed: () => toggle(),
-          ),
-        ),
-        body: Profile());
   }
 
   Widget _myDrawer() {
@@ -142,7 +100,7 @@ class _SideNavbarState extends State<SideNavbar>
                     toggle();
                   },
                   child: _drawerItems(
-                    EvaIcons.home,
+                    EvaIcons.homeOutline,
                     "Home",
                   ),
                 ),
@@ -153,7 +111,7 @@ class _SideNavbarState extends State<SideNavbar>
                       });
                       toggle();
                     },
-                    child: _drawerItems(EvaIcons.browser, "Browse")),
+                    child: _drawerItems(EvaIcons.browserOutline, "Browse")),
                 InkWell(
                     onTap: () {
                       setState(() {
@@ -161,9 +119,9 @@ class _SideNavbarState extends State<SideNavbar>
                       });
                       toggle();
                     },
-                    child: _drawerItems(EvaIcons.person, "Profile")),
-                _drawerItems(EvaIcons.settings2Outline, "Settings"),
-                _drawerItems(EvaIcons.info, "About"),
+                    child: _drawerItems(EvaIcons.personOutline, "Profile")),
+                _drawerItems(EvaIcons.options2Outline, "Settings"),
+                _drawerItems(EvaIcons.infoOutline, "About"),
               ],
             ),
           ),
