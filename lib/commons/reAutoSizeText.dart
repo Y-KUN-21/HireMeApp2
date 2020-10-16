@@ -6,10 +6,12 @@ class ReAutoSizeText extends StatelessWidget {
   final double fontsize;
   final FontWeight fontWeight;
   final int maxlines;
+  final Color color;
   final double letterSpacing;
   ReAutoSizeText({
     Key key,
     this.maxlines,
+    this.color,
     this.fontWeight,
     this.letterSpacing,
     @required this.text,
@@ -27,6 +29,7 @@ class ReAutoSizeText extends StatelessWidget {
           letterSpacing: letterSpacing ?? 1.0,
           fontWeight: fontWeight,
           fontFamily: "Raleway",
+          color: color ?? Colors.black,
           fontSize: fontsize),
     );
   }

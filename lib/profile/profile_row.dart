@@ -10,9 +10,9 @@ class ProfileRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0),
       child: Container(
-        height: 70,
+        height: 60,
         width: double.infinity,
         decoration: boxDecoration,
         child: Row(
