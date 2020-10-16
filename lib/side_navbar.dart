@@ -1,8 +1,11 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:hire_me/about.dart';
 import 'package:hire_me/browse/browse.dart';
+import 'package:hire_me/constrants.dart';
 import 'package:hire_me/myHome.dart';
 import 'package:hire_me/profile/profile.dart';
+import 'package:hire_me/settings.dart';
 
 class SideNavbar extends StatefulWidget {
   @override
@@ -12,20 +15,58 @@ class SideNavbar extends StatefulWidget {
 class _SideNavbarState extends State<SideNavbar>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
-  final double maxSlide = 250.0;
-  int _currentindex = 0;
-  Color bgColor = Color.fromRGBO(61, 64, 91, 1);
 
+  int _currentindex = 0;
+
+  static const Duration toggleDuration = Duration(milliseconds: 250);
+  static const double maxSlide = 225;
+  static const double minDragStartEdge = 60;
+  static const double maxDragStartEdge = maxSlide - 16;
+  bool _canBeDragged = false;
   @override
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+        AnimationController(vsync: this, duration: toggleDuration);
   }
 
-  void toggle() => _animationController.isDismissed
-      ? _animationController.forward()
-      : _animationController.reverse();
+  void close() => _animationController.reverse();
+
+  void open() => _animationController.forward();
+
+  void toggleDrawer() => _animationController.isCompleted ? close() : open();
+
+  void _onDragEnd(DragEndDetails details) {
+    if (_animationController.isDismissed || _animationController.isCompleted) {
+      return;
+    }
+    if (details.velocity.pixelsPerSecond.dx.abs() >= 365.0) {
+      double visualVelocity = details.velocity.pixelsPerSecond.dx /
+          MediaQuery.of(context).size.width;
+
+      _animationController.fling(velocity: visualVelocity);
+    } else if (_animationController.value < 0.5) {
+      close();
+    } else {
+      open();
+    }
+  }
+
+  void _onDragStart(DragStartDetails details) {
+    bool isDragOpenFromLeft = _animationController.isDismissed &&
+        details.globalPosition.dx < minDragStartEdge;
+    bool isDragCloseFromRight = _animationController.isCompleted &&
+        details.globalPosition.dx > maxDragStartEdge;
+
+    _canBeDragged = isDragOpenFromLeft || isDragCloseFromRight;
+  }
+
+  void _onDragUpdate(DragUpdateDetails details) {
+    if (_canBeDragged) {
+      double delta = details.primaryDelta / maxSlide;
+      _animationController.value += delta;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +74,14 @@ class _SideNavbarState extends State<SideNavbar>
       MyHome(),
       Browse(),
       Profile(),
+      Settings(),
+      AboutPage(),
     ];
 
     return GestureDetector(
-      onHorizontalDragStart: (DragStartDetails details) {
-        toggle();
-      },
+      onHorizontalDragStart: _onDragStart,
+      onHorizontalDragUpdate: _onDragUpdate,
+      onHorizontalDragEnd: _onDragEnd,
       child: AnimatedBuilder(
           animation: _animationController,
           builder: (context, _) {
@@ -92,36 +135,11 @@ class _SideNavbarState extends State<SideNavbar>
                 SizedBox(
                   height: 50,
                 ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      _currentindex = 0;
-                    });
-                    toggle();
-                  },
-                  child: _drawerItems(
-                    EvaIcons.homeOutline,
-                    "Home",
-                  ),
-                ),
-                InkWell(
-                    onTap: () {
-                      setState(() {
-                        _currentindex = 1;
-                      });
-                      toggle();
-                    },
-                    child: _drawerItems(EvaIcons.browserOutline, "Browse")),
-                InkWell(
-                    onTap: () {
-                      setState(() {
-                        _currentindex = 2;
-                      });
-                      toggle();
-                    },
-                    child: _drawerItems(EvaIcons.personOutline, "Profile")),
-                _drawerItems(EvaIcons.options2Outline, "Settings"),
-                _drawerItems(EvaIcons.infoOutline, "About"),
+                _drawerItems(EvaIcons.homeOutline, "Home", 0),
+                _drawerItems(EvaIcons.browserOutline, "Browse", 1),
+                _drawerItems(EvaIcons.personOutline, "Profile", 2),
+                _drawerItems(EvaIcons.options2Outline, "Settings", 3),
+                _drawerItems(EvaIcons.infoOutline, "About", 4),
               ],
             ),
           ),
@@ -129,27 +147,35 @@ class _SideNavbarState extends State<SideNavbar>
       ),
     );
   }
-}
 
-Widget _drawerItems(IconData icon, String text) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 15.0),
-    child: Row(
-      children: [
-        Icon(
-          icon,
-          color: Colors.white,
-        ),
-        SizedBox(width: 20),
-        Text(
-          text,
-          style: TextStyle(
-              fontSize: 20,
+  Widget _drawerItems(IconData icon, String text, currentindex) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _currentindex = currentindex;
+          });
+          close();
+        },
+        child: Row(
+          children: [
+            Icon(
+              icon,
               color: Colors.white,
-              fontFamily: "Raleway",
-              fontWeight: FontWeight.w600),
+            ),
+            SizedBox(width: 20),
+            Text(
+              text,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontFamily: "Raleway",
+                  fontWeight: FontWeight.w600),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }
