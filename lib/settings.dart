@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hire_me/commons/reAutoSizeText.dart';
+import 'package:hire_me/dropdownbutton.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +20,22 @@ class Settings extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        child: Center(
-          child: Text("Settings"),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ReAutoSizeText(
+                text: "App setting",
+                fontsize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              DropDownButton()
+            ],
+          ),
         ),
       ),
     );

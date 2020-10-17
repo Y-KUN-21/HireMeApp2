@@ -22,6 +22,7 @@ class _AboutPageState extends State<AboutPage> {
         centerTitle: true,
       ),
       body: Container(
+        color: Colors.white,
         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Center(
           child: Wrap(

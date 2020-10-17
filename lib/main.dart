@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hire_me/profile/profile.dart';
 import 'package:hire_me/side_navbar.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,10 +22,18 @@ Map<int, Color> color = {
 MaterialColor colorCustom = MaterialColor(0xFFfafafa, color);
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('hi', 'IN'),
+        ],
         initialRoute: '/sidenavbar',
         routes: {
           '/profile': (context) => Profile(),

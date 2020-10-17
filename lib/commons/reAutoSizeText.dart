@@ -25,6 +25,7 @@ class ReAutoSizeText extends StatelessWidget {
       minFontSize: fontsize - 3,
       maxLines: maxlines ?? 1,
       overflow: TextOverflow.ellipsis,
+      textAlign: TextAlign.center,
       style: TextStyle(
           letterSpacing: letterSpacing ?? 1.0,
           fontWeight: fontWeight,

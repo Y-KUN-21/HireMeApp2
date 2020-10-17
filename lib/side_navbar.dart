@@ -106,7 +106,16 @@ class _SideNavbarState extends State<SideNavbar>
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        color: bgColor,
+        decoration: BoxDecoration(
+            color: bgColor,
+            gradient: LinearGradient(
+              colors: [
+                Colors.blueAccent,
+                Color.fromRGBO(100, 128, 252, 1),
+              ],
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+            )),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
@@ -149,15 +158,15 @@ class _SideNavbarState extends State<SideNavbar>
   }
 
   Widget _drawerItems(IconData icon, String text, currentindex) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            _currentindex = currentindex;
-          });
-          close();
-        },
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _currentindex = currentindex;
+        });
+        close();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
         child: Row(
           children: [
             Icon(

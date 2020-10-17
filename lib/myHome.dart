@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hire_me/commons/category_pills.dart';
+import 'package:hire_me/constrants.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -128,7 +129,7 @@ class _MyHomeState extends State<MyHome> {
                 ),
               ),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(61, 64, 91, 1),
+                color: bgColor,
               ),
             ),
             Padding(
