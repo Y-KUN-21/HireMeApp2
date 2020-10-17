@@ -1,0 +1,8 @@
+{
+    "menu_home": "Home",
+    "menu_browse": "browse",
+    "menu_profile": "Profile",
+    "menu_setting": "Settings",
+    "menu_aboutus": "About",
+    "aboutus_description": "HireMe is a flutter app powered by REST API written in Django Rest Framework,I've made this app for my college project.Code is available on github, feel free to fork it."
+}
