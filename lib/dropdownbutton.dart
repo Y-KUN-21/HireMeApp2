@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hire_me/commons/reAutoSizeText.dart';
 import 'package:hire_me/constrants.dart';
 import 'package:hire_me/language/languages.dart';
+import 'package:hire_me/main.dart';
 
 class DropDownButton extends StatefulWidget {
   @override
@@ -11,6 +12,21 @@ class DropDownButton extends StatefulWidget {
 
 class _DropDownButtonState extends State<DropDownButton> {
   String _selectedlang = "Change language";
+
+  void onChange(Language language) {
+    Locale _locale;
+    switch (language.code) {
+      case 'en':
+        _locale = Locale(language.code);
+        break;
+      case 'hi':
+        _locale = Locale(language.code);
+        break;
+      default:
+        _locale = Locale(language.code);
+    }
+    MyApp.setLocale(context, _locale);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +43,7 @@ class _DropDownButtonState extends State<DropDownButton> {
               alignedDropdown: true,
               child: DropdownButton(
                 onChanged: (Language language) {
-                  setState(() {
-                    _selectedlang = language.name;
-                  });
-                  print(language.name);
+                  onChange(language);
                 },
                 hint: Row(
                   children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hire_me/language/localization.dart';
 import 'package:hire_me/profile/profile.dart';
 import 'package:hire_me/side_navbar.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,15 +22,41 @@ Map<int, Color> color = {
 };
 MaterialColor colorCustom = MaterialColor(0xFFfafafa, color);
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, Locale locale) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
+    state.setLocale(locale);
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale;
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         localizationsDelegates: [
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
+        localeResolutionCallback: (deviceLocale, supportedLocales) {
+          for (var locale in supportedLocales) {
+            if (locale.languageCode == deviceLocale.languageCode) {
+              return deviceLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
         supportedLocales: [
           const Locale('en', 'US'),
           const Locale('hi', 'IN'),

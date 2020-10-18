@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hire_me/about.dart';
 import 'package:hire_me/browse/browse.dart';
 import 'package:hire_me/constrants.dart';
+import 'package:hire_me/language/localization.dart';
 import 'package:hire_me/myHome.dart';
 import 'package:hire_me/profile/profile.dart';
 import 'package:hire_me/settings.dart';
@@ -144,7 +145,10 @@ class _SideNavbarState extends State<SideNavbar>
                 SizedBox(
                   height: 50,
                 ),
-                _drawerItems(EvaIcons.homeOutline, "Home", 0),
+                _drawerItems(
+                    EvaIcons.homeOutline,
+                    AppLocalizations.of(context).localizedvalues("menu_home"),
+                    0),
                 _drawerItems(EvaIcons.browserOutline, "Browse", 1),
                 _drawerItems(EvaIcons.personOutline, "Profile", 2),
                 _drawerItems(EvaIcons.options2Outline, "Settings", 3),
